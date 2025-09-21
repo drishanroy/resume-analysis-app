@@ -1,0 +1,57 @@
+{
+  "skills": {
+    "python": [
+      "python",
+      "pandas",
+      "numpy",
+      "scikit-learn",
+      "pytorch",
+      "tensorflow"
+    ],
+    "data": [
+      "sql",
+      "postgres",
+      "mysql",
+      "powerbi",
+      "tableau",
+      "excel",
+      "airflow"
+    ],
+    "web": [
+      "javascript",
+      "react",
+      "node",
+      "fastapi",
+      "flask",
+      "django"
+    ],
+    "mlops": [
+      "docker",
+      "kubernetes",
+      "mlflow",
+      "dvc"
+    ],
+    "analytics": [
+      "statistics",
+      "a/b testing",
+      "hypothesis testing"
+    ]
+  },
+  "action_verbs": [
+    "built",
+    "designed",
+    "implemented",
+    "automated",
+    "optimized",
+    "reduced",
+    "improved",
+    "deployed",
+    "led",
+    "analyzed",
+    "developed",
+    "migrated",
+    "refactored",
+    "launched",
+    "delivered"
+  ]
+}
