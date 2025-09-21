@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Resume Analysis – Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 32px auto; padding: 0 16px; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 12px 0; }
+    button { padding: 10px 16px; border-radius: 8px; cursor: pointer; }
+    input, textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; }
+    pre { background: #f7f7f7; padding: 12px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Resume Analysis Demo</h1>
+  <div class="card">
+    <label>PDF Resume</label>
+    <input id="file" type="file" accept="application/pdf"/>
+    <label>Target Role (optional)</label>
+    <input id="role" placeholder="e.g., Data Analyst"/>
+    <label>Job Description (optional)</label>
+    <textarea id="jd" rows="5"></textarea>
+    <button id="analyze">Analyze</button>
+  </div>
+  <div id="result" class="card" style="display:none;">
+    <h3>Results</h3>
+    <div id="summary"></div>
+    <pre id="json"></pre>
+  </div>
+<script>
+const api = "http://127.0.0.1:8000/analyze";
+document.getElementById('analyze').onclick = async () => {
+  const f = document.getElementById('file').files[0];
+  if (!f) { alert("Choose a PDF first"); return; }
+  const fd = new FormData();
+  fd.append('file', f);
+  fd.append('target_role', document.getElementById('role').value || "");
+  fd.append('job_description', document.getElementById('jd').value || "");
+  const res = await fetch(api, { method: 'POST', body: fd });
+  const data = await res.json();
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('summary').innerHTML =
+    `<b>Score:</b> ${data.overall_score}/10
+     <br><b>Summary:</b> ${data.two_line_summary}
+     <br><b>Missing skills:</b> ${(data.jd_comparison?.missing_skills || []).join(', ')}`;
+  document.getElementById('json').textContent = JSON.stringify(data, null, 2);
+};
+</script>
+</body>
+</html>
